@@ -1,31 +1,32 @@
+// how to use:
+// <div class="bg-brandMain text-backgroundLight p-md">
+
 import type { Config } from "tailwindcss";
 
 export default <Config>{
   theme: {
     extend: {
       colors: {
-        brandMain: "#007bff",
-        brandAccent: "#ff5733",
-        brandMuted: "#6c757d",
-        backgroundDark: "#1e293b",
-        backgroundLight: "#f8fafc",
+        mainBodyText: "#16100B",
+        mainBodyBg: "#FFF7EF",
+        cardsSectionsBg: "#FFEAD6",
+        border: "#A67B5B",
+        rateStars: "#F2DE48",
       },
       fontSize: {
-        tiny: "12px",
-        small: "14px",
-        regular: "16px",
-        big: "20px",
-        huge: "24px",
+        body: "24px",
+        h2: "48px",
+        h1: "64px",
       },
       spacing: {
-        xxs: "2px",
-        xs: "6px",
-        sm: "12px",
-        md: "20px",
-        lg: "30px",
-        xl: "40px",
+
       },
+      fontFamily:{
+        main: ["Montserrat", "sans-serif"],
+      }
     },
   },
   plugins: [],
 };
+
+
