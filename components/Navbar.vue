@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar">
-        navbbar
+        navbar
       <div class="logo"> Qera'a</div>
 
     </nav>
