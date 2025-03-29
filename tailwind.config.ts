@@ -27,6 +27,11 @@ export default <Config>{
     },
   },
   plugins: [],
+  safelist: [
+    "border-border", 
+    "text-mainBodyText",
+    "bg-cardsSectionsBg",
+  ],
 };
 
 

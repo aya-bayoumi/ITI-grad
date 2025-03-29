@@ -1,4 +1,31 @@
 @import "tailwindcss";
+@import "tailwindcss";
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 40px;
+  max-width: calc(100% - 160px);
+  margin: 0 auto;
+  padding: 0 80px;
+  justify-content: center;
+}
+
+/* ✅ mobile grid*/
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: repeat(4, 1fr); /* 4 أعمدة */
+    gap: 16px;
+    max-width: calc(100% - 32px); /* 16px مارجين من كل طرف */
+    padding: 0 16px;
+  }
+  
+  .review-card {
+    grid-column: span 4; /* يمتد على 4 أعمدة */
+    max-width: 100%;
+  }
+}
+
 
 /* here we put mixins  */
 

@@ -2,7 +2,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: "2025-03-29",
   app: {
     head: {
       link: [{ rel: "icon", href: "/favicon.ico" }],
@@ -17,4 +17,5 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
+  
 })
