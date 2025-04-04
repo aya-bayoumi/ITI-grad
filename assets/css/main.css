@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+/* here we put mixins  */
+
+/* @layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-bold transition-all;
+  }
+
+  .btn-primary {
+    @apply bg-brandMain text-white hover:bg-brandAccent;
+  }
+
+  .card {
+    @apply p-6 rounded-2xl shadow-lg bg-white;
+  }
+
+  .card-dark {
+    @apply bg-backgroundDark text-white;
+  }
+} */
+
+/* 3. How to Use Them in Vue?
+Now, you can use these mixins (utility classes) directly inside Vue components.
+
+html
+Copy code
+<template>
+  <button class="btn btn-primary">Click Me</button>
+  <div class="card">
+    <p>This is a reusable card component.</p>
+  </div>
+</template> */
