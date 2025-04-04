@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   app:{
     head: {
+      title: 'Qeraa',
     script: [
       { src: "https://apis.google.com/js/platform.js", async: true, defer: true },
     ],
