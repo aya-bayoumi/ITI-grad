@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
 
    <div class="px-20 my-10 flex justify-between items-center">
       <div>
@@ -6,7 +6,7 @@
          <img class="w-[300px] mt-5" src="/images/book1 2.png" alt="">
       </div>
       <div class="w-[900px] self-stretch">
-         <h1 class="text-5xl font-semibold font-['Playfair_Display'] mb-3">{{Book Title}}</h1>
+         <h1 class="text-5xl font-semibold font-['Playfair_Display'] mb-3">Book Title</h1>
          <p class="font-['Montserrat'] text-3xl font-semibold mb-3">Author</p>
          <div class="flex gap-4 items-center mb-3">
             <div
@@ -76,15 +76,14 @@
       <p class="text-start font-medium px-20 text-[#16100B] text-2xl font-['Playfair_Display']">You Can Also Read: </p>
    </div>
    <div class="px-20 flex my-5 justify-between">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      <card />
+      <card />
+      <card />
+      <card />
+      <card />
    </div>
 </template>
 
 <script setup>
     definePageMeta({ layout: 'registered' })
-</script> -->
-<template></template>
+</script>

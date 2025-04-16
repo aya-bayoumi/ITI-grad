@@ -4,8 +4,6 @@ export const useAuth = defineStore('auth', {
   state: () => ({
     email: '',
     resetCode: '',
-    token: '', // ✅ Add token
-
   }),
   actions: {
     setEmail(email) {
@@ -18,20 +16,5 @@ export const useAuth = defineStore('auth', {
       this.email = ''
       this.resetCode = ''
     },
-    // setToken(token) {
-    //   this.token = token
-    //   localStorage.setItem('token', token)
-    // },
-    // initializeToken() {
-    //   const token = localStorage.getItem('token')
-    //   if (token) {
-    //     this.token = token
-    //   }
-    // },
-    // logout() {
-    //   this.token = null
-    //   localStorage.removeItem('token')
-    // },
   },
-  persist: true, // ✅ 
 })

@@ -19,13 +19,7 @@ const auth = useAuthStore()
 
 const logout = async () => {
   auth.logout() ;   
-  // await router.push('/') ;
-  // Clear cookies
-  useCookie('token').value = null
-  useCookie('username').value = null
-  useCookie('role').value = null
-  // Redirect to login or home
-  return navigateTo('/')
+  await router.push('/') ;
 }
 </script>
 

@@ -91,17 +91,17 @@
                     class="rounded-full border-2 text-xs mr-20 p-1 border-[#A67B5B] text-[#A67B5B]"  
                     placeholder="Coupon Code"
                 />
-                <button @click="applyCoupon" class="bg-[#A67B5B] w-30 rounded-full text-[#FED8B1]  text-xs p-2 cursor-pointer hover:bg-[#4E3629] hover:text-[#FED8B1] ">
+                <button @click="applyCoupon" class="bg-[#A67B5B] w-30 rounded-full text-[#4E3629]  text-xs p-2 cursor-pointer">
                     Apply Coupon
                 </button>
             </div>
 
             <div class="flex justify-center">  
-                <button @click="checkoutNow" class="w-40 rounded-full border-2 text-xs bg-[#4E3629] text-[#FED8B1] p-4 cursor-pointer hover:bg-[#FED8B1] hover:text-[#4E3629]">
+                <button @click="checkoutNow" class="w-40 rounded-full border-2 text-xs bg-[#4E3629] text-[#FED8B1] p-4 cursor-pointer">
                     Checkout now
                 </button>
             </div>
-            <div class="flex gap-5 mt-5 justify-center items-center ">
+            <div class="flex gap-5 mt-5 justify-center">
                 <i class="fa-solid fa-arrow-left cursor-pointer"></i>
                 <p>Continue shopping</p>
             </div>
@@ -152,9 +152,9 @@ const checkoutNow = async () => {
       quantity: item.quantity
     }))
   };
-  // /my-orders
+
   try {
-    const res = await fetch('http://localhost:5000/orders', {
+    const res = await fetch('http://localhost:5000/orders/', {
       method: 'POST',
       headers: {
         'Authorization': `${token}`,
@@ -162,7 +162,6 @@ const checkoutNow = async () => {
       },
       body: JSON.stringify(payload)
     });
-    console.log("Checkout response status:", res.status);
 
     if (res.ok) {
       const result = await res.json();
@@ -221,7 +220,7 @@ onMounted(async () => {
       alert("No token found in localStorage");
       return;
     }
-    const res = await fetch('http://localhost:5000/orders/my-orders',{
+    const res = await fetch('http://localhost:5000/cart',{
         method: 'GET',  
         headers: {
         'Authorization': `${token}`, // ✅ تمرير التوكين هنا
@@ -230,23 +229,13 @@ onMounted(async () => {
     });
     const data = await res.json();
     // تحويل بيانات الـ books إلى cartItems بالشكل المطلوب
-    // cartItems.value = data.books.map(book => ({
-    //   id: book.bookId,
-    //   title: book.title,
-    //   price: book.price,
-    //   quantity: book.quantity,
-    //   image: book.image // تقدر تستخدم book.image إذا كان موجود
-    // }));
-
-    cartItems.value = data.flatMap(el => 
-      el.books.map(book => ({
-        id: book.bookId,
-        title: book.title,
-        price: book.price,
-        quantity: book.quantity,
-        image: book.image // تقدر تستخدم book.image إذا كان موجود
-      }))
-    );
+    cartItems.value = data.books.map(book => ({
+      id: book.bookId,
+      title: book.title,
+      price: book.price,
+      quantity: book.quantity,
+      image: book.image // تقدر تستخدم book.image إذا كان موجود
+    }));
 
     apiTotal.value = data.total;
 
