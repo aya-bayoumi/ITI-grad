@@ -36,7 +36,7 @@
       <div id="contact">
         <contact />
       </div>
-    <Footer />
+    
    </div>
  </template>
  
@@ -46,7 +46,6 @@
  import author from '~/components/author.vue'
  import SubscriptionCard from '~/components/Subscription Card.vue'
  import contact from '~/components/Contact.vue'
- import footer from '~/components/Footer.vue'
  </script>
  
  <style scoped>

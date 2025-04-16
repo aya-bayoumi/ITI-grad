@@ -63,7 +63,7 @@ const fetchPlans = async () => {
 };
 
 const browsePlans = () => {
-  navigateTo('/#plans');
+  navigateTo('/plans');
 };
 </script>
 

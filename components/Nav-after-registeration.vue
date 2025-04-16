@@ -57,7 +57,6 @@ onMounted(() => {
     position:sticky;
     top:0;
     z-index: 999;
-    /* width: 100vw; */
 }
 
 nav{
@@ -145,71 +144,37 @@ input:focus{
 
   <script setup>
 
-// import { useAuthStore } from '~/stores/auth'
-// import { onMounted, computed, watch } from 'vue'
-// const auth = useAuthStore()
-
-// // استخدام computed للوصول إلى القيم الحالية
-// const username = computed(() => auth.username || localStorage.getItem('username'))
-// const profileImage = computed(() => auth.profileImage || '/images/user.png') //.
-
-// // مراقبة التغييرات في localStorage للتحديث الفوري
-// watch(() => [localStorage.getItem('username'), localStorage.getItem('userImage')], 
-//   ([newName, newImage]) => {
-//     if (newName && newName !== auth.username) {
-//       auth.setName(newName)
-//     }
-//     if (newImage && newImage !== auth.profileImage) {
-//       auth.setProfileImage(newImage)
-//     }
-//   }
-// )
-
-// onMounted(() => {
-//   // تحميل القيم الأولية من localStorage
-//   const storedName = localStorage.getItem('username')
-//   const storedImage = localStorage.getItem('userImage')
-
-//   if (storedName && !auth.username) {
-//     auth.setName(storedName)
-//   }
-//   if (storedImage && !auth.profileImage) {
-//     auth.setProfileImage(storedImage)
-//   }
-// })
 import { useAuthStore } from '~/stores/auth'
-import { computed, watch, onMounted } from 'vue'
-
+import { onMounted, computed, watch } from 'vue'
 const auth = useAuthStore()
 
-// Use Nuxt's SSR-friendly cookie composable
-const usernameCookie = useCookie('username') // will be reactive
-const profileImageCookie = useCookie('userImage')
+// استخدام computed للوصول إلى القيم الحالية
+const username = computed(() => auth.username || localStorage.getItem('username'))
+const profileImage = computed(() => auth.profileImage || '/images/user.png')
 
-// computed values from cookies
-const username = computed(() => auth.username || usernameCookie.value)
-const profileImage = computed(() => auth.profileImage || profileImageCookie.value || '/images/user.png')
-
-// Watch for cookie changes (in case other parts of app change them)
-watch(() => [usernameCookie.value, profileImageCookie.value], ([newName, newImage]) => {
-  if (newName && newName !== auth.username) {
-    auth.setName(newName)
+// مراقبة التغييرات في localStorage للتحديث الفوري
+watch(() => [localStorage.getItem('username'), localStorage.getItem('userImage')], 
+  ([newName, newImage]) => {
+    if (newName && newName !== auth.username) {
+      auth.setName(newName)
+    }
+    if (newImage && newImage !== auth.profileImage) {
+      auth.setProfileImage(newImage)
+    }
   }
-  if (newImage && newImage !== auth.profileImage) {
-    auth.setProfileImage(newImage)
-  }
-})
+)
 
-// Set auth store from cookies on mount
 onMounted(() => {
-  if (usernameCookie.value && !auth.username) {
-    auth.setName(usernameCookie.value)
+  // تحميل القيم الأولية من localStorage
+  const storedName = localStorage.getItem('username')
+  const storedImage = localStorage.getItem('userImage')
+
+  if (storedName && !auth.username) {
+    auth.setName(storedName)
   }
-  if (profileImageCookie.value && !auth.profileImage) {
-    auth.setProfileImage(profileImageCookie.value)
+  if (storedImage && !auth.profileImage) {
+    auth.setProfileImage(storedImage)
   }
 })
 </script>
-
-
-
+ 
