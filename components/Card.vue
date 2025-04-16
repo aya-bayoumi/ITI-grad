@@ -1,13 +1,20 @@
 <template>
-    <div class="text-black mb-5">
-        <img class="w-24" src="https://images.pexels.com/photos/8820928/pexels-photo-8820928.jpeg?auto=compress&cs=tinysrgb&w=400" alt="">
-        <h4 class="font-bold">Feel The Nature</h4>
-        <p class="font-light text-[#4E3629]">Novel</p>
+    <NuxtLink :to="`/books2/${id}`"class="text-black mb-5"> 
+        <img class="w-50 h-70" :src="image" alt="">
+        
+        <div class="flex justify-between items-center mt-3">
+            <h4 class="font-bold">{{title}}</h4>
+            <i class="fa-regular fa-heart"></i>
+        </div>
+        <p class="font-light text-[#4E3629]">{{category}}</p>
         <div class="flex gap-5">
-            <p>$3.88</p>
-            <p class="font-light">Addie Renee</p>
+            <p>{{ price }} LE</p>
+            <p class="font-light">{{author}}</p>
         </div>
         <p>⭐⭐⭐⭐⭐</p>
         <button class="bg-[#4E3629] w-40 rounded-full text-white">View Book</button>
-    </div>
+    </NuxtLink>
 </template>
+<script setup>
+defineProps(['id', 'image', 'title', 'category', 'author' , 'price'])
+</script>
