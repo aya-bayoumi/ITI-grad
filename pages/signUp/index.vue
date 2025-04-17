@@ -224,6 +224,22 @@ const loginWithGoogle = async () => {
     />
   </div>
   <span v-if="passwordError" class="error-message">{{ passwordError }}</span>
+  <div class="password-wrapper">
+  <label>Confirm Password*</label>
+  <div class="password-input-container">
+    <input
+      :type="showPassword ? 'text' : 'password'"
+      v-model="confirmPassword"
+      placeholder="Confirm your password"
+    />
+    <FontAwesomeIcon
+      :icon="showPassword ? ['fas', 'eye-slash'] : ['fas', 'eye']"
+      class="eye-icon"
+      @click="togglePasswordVisibility"
+    />
+  </div>
+  <span v-if="confirmPasswordError" class="error-message">{{ confirmPasswordError }}</span>
+</div>
 </div>
             <div class="terms">
               <input type="checkbox" v-model="auth.agree" /> 
@@ -248,6 +264,9 @@ const loginWithGoogle = async () => {
   </template>
   
   <script setup>
+  definePageMeta({
+  layout: 'default',
+})
   import { useAuthStore } from '@/stores/auth'
   import { useRouter } from 'vue-router'
   import { ref } from 'vue'
@@ -262,6 +281,9 @@ const togglePasswordVisibility = () => {
   const nameError = ref('')
   const emailError = ref('')
   const passwordError = ref('')
+  const confirmPassword = ref('')
+const confirmPasswordError = ref('')
+
   
   const validateName = () => {
     if (!auth.name) {
@@ -306,19 +328,29 @@ const togglePasswordVisibility = () => {
       passwordError.value = ''
     }
   }
+  const validateConfirmPassword = () => {
+  if (!confirmPassword.value) {
+    confirmPasswordError.value = 'Please confirm your password'
+  } else if (confirmPassword.value !== auth.password) {
+    confirmPasswordError.value = 'Passwords do not match'
+  } else {
+    confirmPasswordError.value = ''
+  }
+}
+
   
-  const handleSubmit = async () => {
-    validateName()
-    validatePassword()
-    validateField('email')
- 
-    if (nameError.value || passwordError.value || emailError.value) return
-  
-    if (!auth.agree) {
-      auth.setError("You must agree to the terms!")
-      return
-    }
-  
+const handleSubmit = async () => {
+  validateName()
+  validatePassword()
+  validateField('email')
+  validateConfirmPassword()
+
+  if (nameError.value || passwordError.value || emailError.value || confirmPasswordError.value) return
+
+  if (!auth.agree) {
+    auth.setError("You must agree to the terms!")
+    return
+  }
     try {
       const res = await fetch("http://localhost:5000/auth/register", {
         method: "POST",
@@ -380,6 +412,65 @@ const togglePasswordVisibility = () => {
 
   
   <style scoped>
+  @media (max-width: 768px) {
+  .signup-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    margin-top: -60px;
+  }
+
+  .signup-box {
+    flex-direction: column;
+    padding: 20px 15px;
+    width: 100%;
+    max-width: 400px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signup-form {
+    padding: 0;
+    width: 100%;
+  }
+
+  .illustration {
+    display: none;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  input {
+    font-size: 14px;
+  }
+
+  .google-btn,
+  .signup-btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .terms {
+    font-size: 14px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .error-message {
+    font-size: 13px;
+  }
+
+  .login-link {
+    font-size: 12px;
+  }
+  .illustration img{
+    display: none;
+  }
+}
+
  .error-message {
   color: red;
   font-size: 14px;
@@ -400,21 +491,21 @@ const togglePasswordVisibility = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-
+    min-height: 100vh;
     background: #4e342e; 
     color: #2e1e1e;
     font-family: "Arial", sans-serif;
   }
   
   .signup-box {
-
+    margin-top: 20px;
+    margin-bottom: 20px;
     background: #fdf6e3; 
     display: flex;
     padding: 20px;
     border-radius: 20px;
     width: 80%;
-    min-height: 90%;
+    min-height: 100%;
     text-align: center;
     transition: min-height 0.3s ease-in-out;
     max-width: 80%;

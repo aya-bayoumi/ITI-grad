@@ -1,6 +1,6 @@
 <template>
   <section class="">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-yellow-950 ">About us</h2>
       
       <div class="flex flex-col md:flex-row gap-8 items-center">

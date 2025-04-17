@@ -61,6 +61,63 @@
   </template>
 
 <style scoped>
+@media (max-width: 767px) {
+  footer {
+    text-align: center;
+  }
+
+  /* Top section */
+  footer > div:first-child {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+    /* padding-top: 60px; */
+    /* padding-bottom: 40px; */
+  }
+
+  footer h1 {
+    justify-content: center;
+    font-size: 36px;
+    margin-bottom: -300px;
+  }
+
+  .icons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .icons .icon {
+    font-size: 28px;
+  }
+
+  .flex.flex-wrap.justify-center.gap-8.font-semibold {
+    gap: 16px;
+    flex-direction: column;
+  }
+
+  /* Bottom section */
+  footer > div:last-child {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  footer > div:last-child p {
+    margin-bottom: 10px;
+  }
+
+  footer > div:last-child > div {
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  footer a {
+    font-size: 14px;
+  }
+}
+
 footer{
   background-color:  #fdf6ee;
 }

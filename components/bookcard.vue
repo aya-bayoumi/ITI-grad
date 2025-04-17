@@ -1,41 +1,58 @@
+
+
+ <template>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-full transition-all hover:shadow-md hover:scale-105 ">
+    <!-- صورة المنتج -->
+    <div class="relative pt-[100%] bg-white h-90% ">
+      <img 
+        :src="image || '/placeholder-book.png'" 
+        :alt="title"
+        class="absolute top-0 left-0 w-full h-full object-cover rounded-lg p-3"
+      />
+    </div>
+
+    <!-- محتوى البطاقة -->
+    <div class=" text-center ">
+      <!-- عنوان المنتج -->
+      <h3 class="font-medium text-gray-900 text-sm line-clamp-2 mb-1 h-10 flex items-center justify-center">
+        {{ title }}
+      </h3>
+      
+      <!-- مؤلف/نوع المنتج -->
+      <p class="text-gray-500 text-xs mb-2">
+        {{ author }}
+      </p>
+
+      <!-- التقييم -->
+      <span class="text-yellow-400">★★★★★</span>
+      <div class="flex justify-center mb-1">
+        <div class="flex text-yellow-400">
+          <Icon 
+            v-for="n in 5" 
+            :key="n" 
+            name="mdi:star-20-solid" 
+            class="w-4 h-4"
+          />
+        </div>
+      </div>
+
+      <!-- السعر -->
+      <p class="text-gray-900 font-bold text-sm">
+        {{ price }}
+      </p>
+    </div>
+  </div>
+</template>
+
 <script setup>
 defineProps({
   title: String,
   author: String,
   image: String,
-  discount: String,
-  rating: Number
+  price: String,
+  rating: {
+    type: Number,
+    default: 5 
+  }
 });
 </script>
-
-<template>
-  <div class="relative bg-black shadow-lg rounded-lg overflow-hidden w-64">
-
-    <!-- <img :src="image" :alt="title" class="w-full h-80 object-cover" /> -->
-    <img src="C:\Users\COMPUMARTS\ITI-grad\assets\css\Green Scenery Illustrative Novel Book Cover.png" alt="title" class="w-full h-80 object-cover" />
-    
-
-    <div class="absolute bottom-3 left-3 bg-brown-700 text-white px-2 py-1 text-sm font-bold rounded">
-        50% Off
-      <!-- {{ discount }}% Off -->
-    </div>
-
-
-    <div class="p-4">
-      <h3 class="text-lg font-semibold text-brown-900">{{ title }}</h3>
-      <p class="text-brown-700 text-sm">{{ author }}</p>
-
-      <div class="flex items-center mt-2">
-        <span class="text-yellow-500 mr-1">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-        </span>
-        <span class="text-yellow-600 text-sm">({{ rating }})</span>
-      </div>
-    </div>
-  </div>
-</template>
-

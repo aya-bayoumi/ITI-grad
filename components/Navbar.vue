@@ -3,7 +3,7 @@
     <div class="logo">📚 Qera'a</div>
     <ul>
       <li><NuxtLink to="/">الرئيسية</NuxtLink></li>
-      <li><NuxtLink to="/books">الكتب</NuxtLink></li>
+      <li><NuxtLink to="/books2">الكتب</NuxtLink></li>
       <li><NuxtLink to="/plans">الخطط</NuxtLink></li>
       <li><NuxtLink to="/contact">تواصل معنا</NuxtLink></li>
     </ul>

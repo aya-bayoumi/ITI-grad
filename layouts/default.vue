@@ -10,7 +10,7 @@
   
   <script setup>
   // import Nav-before-registeration from '@/components/Nav-before-registeration.vue';
-  // import Footer from '@/components/Footer.vue';
+  import Footer from '@/components/Footer.vue';
   // import author from '~/components/author.vue';
   </script>
   

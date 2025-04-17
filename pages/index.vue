@@ -10,32 +10,49 @@
          </h1>
        </div>
      </section>
- 
      <!-- trend books section -->
+
      <trend />
      <about />
-     
      <!-- authors section - -->
      <div class="mb-8">
        <author />
      </div>
  
-     <!-- plans section - -->
-     <section id="plans" class="px-4 sm:px-6 lg:px-8 bg-[#FFF7EF] py-12  flex items-center justify-center">
-       <div class="max-w-6xl mx-auto">
-         <h2 class="text-3xl font-bold text-yellow-950 mb-8">Choose your Plan</h2>
-         
-         <div class="flex flex-col md:flex-row gap-16 justify-center items-center mt-16">
-           <SubscriptionCard plan="Reader" price="100 / month" />
-           <SubscriptionCard plan="Bookworm" price="300 / month" />
-           <SubscriptionCard plan="Master" price="500 / month" />
-         </div>
-       </div>
-     </section>
+     <section id="plans" class="bg-[#FFF7EF] py-16 px-4 sm:px-8">
+    <h2 class="text-3xl font-bold text-yellow-950 mb-8  ">Choose your Plan</h2>
+    <br>
+    <div class="flex flex-col md:flex-row gap-16 justify-center items-center">
+        <SubscriptionCard plan="Reader" price="100 / month" :features="[
+    'Access to 500 books',
+    'Offline listening',
+    '1 device only',
+    'Priority support'
+  ]"
+  @selected="handlePlanSelection" />
+        <SubscriptionCard plan="Bookworm" price="300 / month"  :features="[
+    'Access to 1000+ books',
+    'Offline listening',
+    'Share with 1 family member',
+    'Priority support'
+    
+  ]" 
+  @selected="handlePlanSelection"/>
+        <SubscriptionCard plan="Master" price="500 / month" :features="[
+    'Unlimited books',
+    'Offline & Online sync',
+    'Share with 3 family members',
+    'Priority support'
+  ]" 
+  @selected="handlePlanSelection" />
+    </div>
+</section>
+
      <!-- contact us -->
       <div id="contact">
         <contact />
       </div>
+    <!-- <Footer /> -->
     
    </div>
  </template>
@@ -46,6 +63,21 @@
  import author from '~/components/author.vue'
  import SubscriptionCard from '~/components/Subscription Card.vue'
  import contact from '~/components/Contact.vue'
+
+ const handlePlanSelection = async ({ plan, price }) => {
+  const res = await fetch('/api/pay', {
+    method: 'POST',
+    body: JSON.stringify({ plan, price }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+
+  const data = await res.json()
+
+  if (data.paymentUrl) {
+    window.location.href = data.paymentUrl
+  }
+}
+
  </script>
  
  <style scoped>

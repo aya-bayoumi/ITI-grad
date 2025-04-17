@@ -20,7 +20,7 @@
       <p class="text-2xl sm:text-3xl font-semibold text-[#6F4E37] mb-6">{{ price }}</p>
 
     
-  <ul class="space-y-3 text-left w-full max-w-sm text-[#5C4033] mb-8">
+  <!-- <ul class="space-y-3 text-left w-full max-w-sm text-[#5C4033] mb-8">
     <li class="text-lg">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fill-rule="evenodd" d="M16.707 4.293a1 1 0 011.414 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 11.586l7.707-7.707z" clip-rule="evenodd" />
@@ -45,25 +45,50 @@
       </svg>
       Night mode for better reading
     </li>
-  </ul>
+  </ul> -->
+  <ul class="space-y-3 text-left w-full max-w-sm text-[#5C4033] mb-8 ">
+  <li 
+    v-for="(feature, index) in features" 
+    :key="index"
+    class="text-lg"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M16.707 4.293a1 1 0 011.414 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 11.586l7.707-7.707z" clip-rule="evenodd" />
+    </svg>
+    {{ feature }}
+  </li>
+</ul>
 
 
 
-      <button class="mt-auto px-3 py-3 bg-[#4E3629] text-white text-md  f rounded-lg hover:bg-[#6F4E37] transition-colors">
+      <button class="mt-auto px-3 py-3 bg-[#4E3629] text-white text-md  f rounded-lg hover:bg-[#6F4E37] transition-colors"
+      @click="subscribe">
         Subscribe Now
+        
       </button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    plan: String,
-    price: String
-  }
+<script setup>
+const props = defineProps({
+  plan: String,
+  price: String,
+  features: Array 
+})
+
+const emit = defineEmits(['selected'])
+
+const subscribe = () => {
+  console.log(`Subscribed to ${props.plan} plan for ${props.price}`);
+  
+  emit('selected', {
+    plan: props.plan,
+    price: props.price
+  })
 }
 </script>
+
 <style scoped>
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
