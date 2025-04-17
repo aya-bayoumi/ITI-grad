@@ -13,7 +13,7 @@
       <p class="font-light text-[#4E3629]">{{ category }}</p>
       <div class="flex justify-between items-center mt-3 w-full">
         <p>{{ price }} LE</p>
-        <p class="font-light">{{ author }}</p>
+        <p class="font-light" v-if="author && author.name">{{ author.name }}</p>
       </div>
       <img class="h-5 w-24 mb-2" src="/images/rate.png" alt="">
       <NuxtLink :to="`/books2/${id}`" class="bg-[#4E3629] rounded-full text-white cursor-pointer px-15 py-2 w-full">
