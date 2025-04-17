@@ -8,7 +8,7 @@
      </div>
      <div class="w-[900px] self-stretch">
        <h1 class="text-3xl font-semibold font-['Playfair_Display'] mb-3">{{ book.title }}</h1>
-       <p class="font-['Montserrat'] text-xl font-semibold mb-3">{{ book.author.name }}</p>
+       <p class="font-['Montserrat'] text-xl font-semibold mb-3" v-if="book && book.author && book.author.name">{{ book.author.name }}</p>
        <div class="flex gap-4 items-center mb-3">
          <div class="border-1 border-[#A67B5B] w-[150px] flex flex-col justify-center items-center rounded-lg font-['Montserrat']">
            <p>Hard Copy Book</p>
