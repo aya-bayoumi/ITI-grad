@@ -10,6 +10,11 @@ import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faInstagram, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons' 
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBars, faTimes)
+library.add(faCheck)
 
 
 library.add(faGoogle);

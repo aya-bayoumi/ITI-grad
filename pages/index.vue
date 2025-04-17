@@ -52,6 +52,7 @@
       <div id="contact">
         <contact />
       </div>
+    <!-- <Footer /> -->
     
    </div>
  </template>

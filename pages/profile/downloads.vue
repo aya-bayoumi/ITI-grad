@@ -1,32 +1,31 @@
 <template>
-  <div class="orders-page">
+  <div class="downloads-page">
     <Sidebar />
     <div class="content">
-      <h1>Downloads</h1>
-
+      <h1 class="hidden md:block">Downloads</h1>
       <div v-if="loading">Loading...</div>
 
-      <div v-else-if="orders.length === 0" class="empty-orders">
-        <p>No order has been made yet</p>
+      <div v-else-if="downloads.length === 0" class="empty-downloads">
+        <p>No downloads yet</p>
         <button class="browse-button" @click="browseBooks">Browse Books</button>
       </div>
 
-      <div v-else class="order-list">
-        <div v-for="order in orders" :key="order._id" class="order-item">
-          <p>Order #{{ order._id.slice(-5).toUpperCase() }} - Total: ${{ order.total }}</p>
-          <p>Status: {{ order.status }}</p>
-          <ul>
-            <li v-for="item in order.books" :key="item.bookId">
-              {{ item.title }} - {{ item.quantity }}x
-            </li>
-          </ul>
-          <p class="text-gray-400 text-sm">Created At: {{ formatDate(order.createdAt) }}</p>
+      <div class="download-list">
+        <div
+          v-for="book in downloads"
+          :key="book._id"
+          class="book-card flex items-center justify-between bg-[#fdecd2] rounded-2xl p-4 w-full mb-2"
+        >
+          <img :src="book.cover || '/images/book3.png'" alt="Book cover" class="w-10 h-12 mr-4" />
+          <div class="details flex-1 flex justify-between items-center text-[#5a3d2b] gap-5 text-base">
+            <p class="font-bold flex-2">{{ book.title }}</p>
+            <p class="flex-1">{{ formatDate(book.downloadedAt) }}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { ref, onMounted } from 'vue'
@@ -37,40 +36,23 @@ definePageMeta({
   layout: 'registered',
 })
 
-const orders = ref([])
+const downloads = ref([])
 const loading = ref(true)
 
-const fetchOrders = async () => {
+const fetchDownloads = async () => {
+  loading.value = true
   try {
-    const res = await fetch('http://localhost:5000/orders/my-orders', {
-      method: 'GET',
+    const res = await $fetch('http://localhost:5000/orders/downloads', {
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `${localStorage.getItem('token')}`,
       },
     })
-
-    const data = await res.json()
-
-    if (res.ok) {
-      orders.value = data
-    } else {
-      console.error('Error fetching orders:', data.message || 'Unknown error')
-    }
-  } catch (error) {
-    console.error('Error fetching orders:', error)
+    downloads.value = res
+  } catch (err) {
+    console.error('Error fetching downloads:', err)
   } finally {
     loading.value = false
   }
-
-}
-
-onMounted(() => {
-  fetchOrders()
-})
-
-const browseBooks = () => {
-  navigateTo('/books')
 }
 
 const formatDate = (date) => {
@@ -80,7 +62,45 @@ const formatDate = (date) => {
 </script>
 
 <style scoped>
-.orders-page {
+@media (max-width: 768px) {
+  .downloads-page {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .empty-downloads {
+    margin: 40px auto;
+    width: 90%;
+    text-align: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .browse-button {
+    font-size: 14px;
+    padding: 10px 30px;
+  }
+
+  .book-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+    width: 100%;
+  }
+
+  .details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  img {
+    margin-right: 0;
+  }
+}
+
+.downloads-page {
   padding: 50px;
   background: #fdf6ee;
   height: 100%;
@@ -94,7 +114,7 @@ h1 {
   font-weight: bold;
 }
 
-.empty-orders {
+.empty-downloads {
   background: #fdecd2;
   padding: 10px 25px;
   border-radius: 30px;
@@ -103,7 +123,8 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0px auto;
+  margin: 0px 60px;
+  width: 70%; 
 }
 
 .browse-button {
@@ -111,7 +132,7 @@ h1 {
   color: white;
   padding: 10px 70px;
   border: none;
-  border-radius: 20px;
+  border-radius: 40px;
   font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
@@ -121,14 +142,18 @@ h1 {
   background: #5a3d2b;
 }
 
-.order-list {
+.download-list {
   margin-top: 20px;
 }
 
-.order-item {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+.book-card {
+  background: #fdecd2;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
+  margin-bottom: 15px;
+  width: 90%;
 }
 </style>
