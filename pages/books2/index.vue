@@ -24,24 +24,21 @@
         <label>Category</label>
         <select v-model="selectedCategory" class="bg-transparent outline-none w-full sm:w-auto">
           <option value="">All</option>
-          <option value="Fiction">Fiction</option>
-          <option value="Science">Science</option>
-          <option value="Self Development">Self Development</option>
+          <option v-for="(category, index) in categoriesList" :key="index" :value="category">{{ category }}</option>
         </select>
       </div>
 
       <!-- Author -->
-      <div class="flex flex-col sm:flex-row items-center gap-2 bg-[#FAD4A2] text-[#4E3629] rounded-full px-4 py-2 h-auto sm:h-10 w-full sm:w-auto">
+      <!-- <div class="flex flex-col sm:flex-row items-center gap-2 bg-[#FAD4A2] text-[#4E3629] rounded-full px-4 py-2 h-auto sm:h-10 w-full sm:w-auto">
         <label>Author</label>
         <select v-model="selectedAuthor" class="bg-transparent outline-none w-full sm:w-auto">
 
-          <option value="">All</option>
-          <option value="Stephen">Stephen</option>
-          <option value="Hawking">Hawking</option>
-          <option value="John">John</option>
+          <option value=""> All </option>
+          
+          <option v-for="(author, index) in authorsList" :key="index" :value="author">{{ author }}</option>
         </select>
 
-      </div>
+      </div> -->
 
 
     </div>
@@ -120,6 +117,7 @@ import Card from '~/components/Card.vue';
 const categories = ref([]);
 const categoriesList = ref([]);
 const books = ref([]);
+const authorsList = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(1);
 const totalPagesArray = ref([]);
@@ -251,11 +249,31 @@ const fetchCategoriesAndBooks = async () => {
 };
 
 
+const fetchAuthors = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch('http://localhost:5000/authors', {
+      headers: { Authorization: token },
+    });
+    const data = await res.json();
 
+    if ( data.authors.length > 0) {
+
+
+      // Extract unique categories from the books data
+      const uniqueAuthors = Array.from(new Set(data.authors.map((author) => author.name)));
+
+      authorsList.value = uniqueAuthors;
+    }
+  } catch (err) {
+    console.error('Error fetching books:', err);
+  }
+};
 watch([selectedCategory, selectedAuthor, minPrice, maxPrice], fetchFilteredBooks);
 
 onMounted(() => {
   fetchCategories(currentPage.value);
   fetchCategoriesAndBooks();
+  fetchAuthors();
 });
 </script>

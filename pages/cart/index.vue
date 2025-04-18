@@ -117,6 +117,7 @@ definePageMeta({ layout: 'registered' })
 
 
 const cartItems = ref([]);
+const cartId = ref([]);
 const shipping = 10; // قيمة ثابتة
 const couponCode = ref("");
 const apiTotal = ref(0);
@@ -146,38 +147,34 @@ const checkoutNow = async () => {
     return;
   }
 
-  const payload = {
-    books: cartItems.value.map(item => ({
-      bookId: item.id,
-      quantity: item.quantity
-    }))
-  };
-  // /my-orders
   try {
-    const res = await fetch('http://localhost:5000/cart/', {
+    const res = await fetch('http://localhost:5000/stripe/create-checkout-session', {
       method: 'POST',
       headers: {
         'Authorization': `${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ cartId: cartId.value })
     });
-    console.log("Checkout response status:", res.status);
 
     if (res.ok) {
       const result = await res.json();
-      alert("✅ Order placed successfully!");
-      console.log("Order response:", result);
-      cartItems.value = []; // Clear cart if you want
+      console.log("✅ Stripe session created:", result);
+      if (result.url) {
+        window.open(result.url, '_blank'); // Open Stripe checkout in new tab
+      } else {
+        alert("Stripe URL not returned.");
+      }
     } else {
       const errorData = await res.json();
-      alert(`❌ Failed to place order: ${errorData.message || res.statusText}`);
+      alert(`❌ Failed to create checkout session: ${errorData.message || res.statusText}`);
     }
   } catch (err) {
-    console.error("🚨 Error placing order:", err);
-    alert("Something went wrong while placing your order.");
+    console.error("🚨 Error creating checkout session:", err);
+    alert("Something went wrong while redirecting to payment.");
   }
 };
+
 
 
 const removeItem = async (index) => {
@@ -229,6 +226,7 @@ onMounted(async () => {
       }
     });
     const data = await res.json();
+    cartId.value = data._id; // تخزين cartId في المتغير
     console.log("✅ بيانات السلة:", data);
 
     // تحويل بيانات الـ books إلى cartItems بالشكل المطلوب
