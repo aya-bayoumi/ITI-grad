@@ -14,7 +14,7 @@
         @click="openDownload"
         class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mt-4"
       >
-         Download Book
+         Download
       </button>
   
       <div class="text-center text-black text-2xl capitalize cursor-pointer mt-6">
