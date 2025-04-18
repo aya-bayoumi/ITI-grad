@@ -56,7 +56,7 @@
   try {
     const res = await $fetch('http://localhost:5000/orders/my-orders', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `${localStorage.getItem('token')}`,
       },
     })
     orders.value = res; // res لازم تكون راجعة من الباك أراي فيها الأوردرات

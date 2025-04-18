@@ -69,8 +69,8 @@
           <span class="bg-[#E9D8C8] rounded-full px-2 py-0.5 text-xs">11</span>
         </li>
       </ul>
-    <!-- </div>
-     <button @click.prevent="logout" class="bg-[#E9D8C8] rounded-full px-4 py-0.5 text-lg text-[#4E3629] w-50 mt-10">Logout</button>
+     </div>
+     <!-- <button @click.prevent="logout" class="bg-[#E9D8C8] rounded-full px-4 py-0.5 text-lg text-[#4E3629] w-50 mt-10">Logout</button> -->
   </div> -->
 </template>
 <style >
